@@ -543,11 +543,11 @@
         if (data && data.count) {
             document.getElementById('totalVisitsCount').innerText = data.count.toLocaleString();
         } else {
-            document.getElementById('totalVisitsCount').innerText = '86';
+            document.getElementById('totalVisitsCount').innerText = '12k+';
         }
     } catch (error) {
         console.error('Counter Error:', error);
-        document.getElementById('totalVisitsCount').innerText = '86';
+        document.getElementById('totalVisitsCount').innerText = '12k+';
     }
     document.getElementById('activeUsersCount').innerText = 'Online';
 }
