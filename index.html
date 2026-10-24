@@ -536,14 +536,28 @@
 
         document.getElementById('searchInput').addEventListener('input', renderGrid);
 
-       async function initCounters() {
-    try {
-        const response = await fetch('https://api.counterapi.dev/v1/saidhasan-aibox/pageviews/up');
-        const data = await response.json();
-        if (data && data.count) {
-            document.getElementById('totalVisitsCount').innerText = data.count.toLocaleString();
-        } else {
-            document.getElementById('totalVisitsCount').innerText = '86';
+      async function initCounters() {
+            try {
+                const response = await fetch('https://api.counterapi.dev/v1/saidhasan-aibox/pageviews/up');
+                const data = await response.json();
+                const countValue = (data && data.count !== undefined) ? data.count : 86;
+                
+                // সব সম্ভাব্য আইডি একসাথে চেক করে আপডেট করবে, যাতে মিসম্যাচ না হয়
+                ['totalVisitsCount', 'visitor-count', 'total-page-views'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.innerText = countValue.toLocaleString();
+                    }
+                });
+            } catch (error) {
+                console.error('Counter Error:', error);
+            }
+            
+            const activeEl = document.getElementById('activeUsersCount');
+            if (activeEl) {
+                activeEl.innerText = 'Online';
+            }
+        }
         }
     } catch (error) {
         console.error('Counter Error:', error);
